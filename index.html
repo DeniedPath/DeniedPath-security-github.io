@@ -1,1 +1,50 @@
-
+<!DOCTYPE html> <!-- This declaration tells the browser that this is an HTML5 document -->
+<html lang="en"> <!-- The root element of the HTML page, with English set as the language -->
+<head> <!-- Contains meta information about the document -->
+    <meta charset="UTF-8"> <!-- Specifies the character encoding for the document (UTF-8 is a universal character set) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Makes the website responsive on mobile devices -->
+    <title>Dynasty Defense Alarm Systems & Monitoring</title> <!-- Sets the title of the webpage (appears in browser tab) -->
+    <link rel="stylesheet" href="styles.css"> <!-- Links to an external CSS file for styling -->
+</head>
+<body> <!-- Contains the visible content of the webpage -->
+    <div class="container"> <!-- A container to hold all the content -->
+        <h1>Dynasty Defense Alarm Systems & Monitoring</h1> <!-- Main heading of the page -->
+        
+        <!-- Section for setting up the master password -->
+        <div id="passwordSetup" class="section">
+            <h2>Set Master Password</h2> <!-- Subheading for this section -->
+            <input type="password" id="password1" placeholder="Enter Password"> <!-- Input field for entering the password -->
+            <input type="password" id="password2" placeholder="Confirm Password"> <!-- Input field for confirming the password -->
+            <button onclick="setMasterPassword()">Set Password</button> <!-- Button to set the password -->
+            <p id="passwordMessage"></p> <!-- Paragraph to display messages about password setup -->
+        </div>
+        
+        <!-- Section for configuring sensors (initially hidden) -->
+        <div id="sensorConfig" class="section" style="display: none;">
+            <h2>Sensor Configuration</h2> <!-- Subheading for this section -->
+            <input type="number" id="sensorNumber" placeholder="Sensor Number"> <!-- Input for sensor number -->
+            <select id="sensorType"> <!-- Dropdown to select sensor type -->
+                <option value="fire">Fire</option>
+                <option value="smoke">Smoke</option>
+                <option value="heat">Heat</option>
+            </select>
+            <input type="number" id="delayTime" placeholder="Delay Time (seconds)"> <!-- Input for delay time -->
+            <button onclick="addSensor()">Add Sensor</button> <!-- Button to add a new sensor -->
+        </div>
+        
+        <!-- Section to display the list of configured sensors (initially hidden) -->
+        <div id="sensorList" class="section" style="display: none;">
+            <h2>Configured Sensors</h2> <!-- Subheading for this section -->
+            <ul id="sensors"></ul> <!-- Unordered list to display configured sensors -->
+        </div>
+        
+        <!-- Section for simulating alarms (initially hidden) -->
+        <div id="alarmSimulation" class="section" style="display: none;">
+            <h2>Alarm Simulation</h2> <!-- Subheading for this section -->
+            <button onclick="simulateAlarm()">Simulate Alarm</button> <!-- Button to simulate an alarm -->
+            <div id="alarmInfo"></div> <!-- Div to display information about simulated alarms -->
+        </div>
+    </div>
+    <script src="script.js"></script> <!-- Links to an external JavaScript file for functionality -->
+</body>
+</html>
