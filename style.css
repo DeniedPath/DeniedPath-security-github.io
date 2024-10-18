@@ -21,7 +21,7 @@ h1, h2 {
 
 
 .section {
-    background: #fff;
+    background: #ffffff;
     margin: 20px 0;
     padding: 20px;
     border-radius: 5px;
@@ -63,13 +63,11 @@ button:hover {
 
 
 #sensors li {
-    background: #e9ecef;
+    background: #ca02ba;
     margin: 5px 0;
     padding: 10px;
     border-radius: 5px;
 }
-
-/* ... (previous CSS styles) ... */
 
 /* Modal Styles */
 .modal {

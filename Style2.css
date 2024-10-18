@@ -14,7 +14,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: var(--background-color);
-    color: var(--text-color);
+    color: black;
     background-image: 
         radial-gradient(circle at 10% 20%, rgba(0, 255, 255, 0.1) 0%, transparent 20%),
         radial-gradient(circle at 90% 80%, rgba(255, 0, 255, 0.1) 0%, transparent 20%);
@@ -61,7 +61,7 @@ input, select, button {
     border: none;
     border-radius: 5px;
     background: rgba(255, 255, 255, 0.1);
-    color: var(--text-color);
+    color: black;
     font-family: 'Roboto', sans-serif;
     transition: all 0.3s ease;
 }
