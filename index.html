@@ -1,53 +1,126 @@
-<!DOCTYPE html> <!-- This declaration tells the browser that this is an HTML5 document -->
-<html lang="en"> <!-- The root element of the HTML page, with English set as the language -->
-<head> <!-- Contains meta information about the document -->
-    <meta charset="UTF-8"> <!-- Specifies the character encoding for the document (UTF-8 is a universal character set) -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Makes the website responsive on mobile devices -->
-    <title>Dynasty Defense Alarm Systems & Monitoring</title> <!-- Sets the title of the webpage (appears in browser tab) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynasty Defense Alarm Systems & Monitoring</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css"> <!-- Links to an external CSS file for styling -->
-    <link rel="stylesheet" href="style2.css"> <!-- Links to an external CSS file for styling -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="Style2.css">
 </head>
-<body> <!-- Contains the visible content of the webpage -->
-    <div class="container"> <!-- A container to hold all the content -->
-        <h1>Dynasty Defense Alarm Systems & Monitoring</h1> <!-- Main heading of the page -->
-        
-        <!-- Section for setting up the master password -->
-        <div id="passwordSetup" class="section">
-            <h2>Set Master Password</h2> <!-- Subheading for this section -->
-            <input type="password" id="password1" placeholder="Enter Password"> <!-- Input field for entering the password -->
-            <input type="password" id="password2" placeholder="Confirm Password"> <!-- Input field for confirming the password -->
-            <button onclick="setMasterPassword()">Set Password</button> <!-- Button to set the password -->
-            <p id="passwordMessage"></p> <!-- Paragraph to display messages about password setup -->
+<body>
+    <div class="container">
+        <h1>Dynasty Defense Alarm Systems & Monitoring</h1>
+
+        <!-- Sign In Section -->
+        <div id="signIn" class="section">
+            <h2>Sign In</h2>
+            <input type="password" id="signInPassword" placeholder="Enter Your Password" autocomplete="current-password" required>
+            <button onclick="signIn()">Sign In</button>
+            <button onclick="showAdminLogin()">Admin Login</button>
+            <p><a href="#" onclick="showForgotPassword()">Forgot Password?</a></p>
+            <p>New user? <a href="#" onclick="showCreatePassword()">Create Password</a></p>
         </div>
-        
-        <!-- Section for configuring sensors (initially hidden) -->
-        <div id="sensorConfig" class="section" style="display: none;">
-            <h2>Sensor Configuration</h2> <!-- Subheading for this section -->
-            <input type="number" id="sensorNumber" placeholder="Sensor Number"> <!-- Input for sensor number -->
-            <select id="sensorType"> <!-- Dropdown to select sensor type -->
-                <option value="fire">Fire</option>
-                <option value="smoke">Smoke</option>
-                <option value="heat">Heat</option>
+
+        <!-- Create Password Section -->
+        <div id="createPassword" class="section hidden">
+            <h2>Create Password</h2>
+            <input type="password" id="newPassword1" placeholder="Enter New Password" 
+                   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{16,}" 
+                   title="Must contain at least one number, one uppercase and lowercase letter, and at least 16 or more characters"
+                   autocomplete="new-password" required>
+            <input type="password" id="newPassword2" placeholder="Confirm New Password" required>
+            <select id="securityQuestion" required>
+                <option value="">Select a Security Question</option>
+                <option value="pet">What was the name of your first pet?</option>
+                <option value="school">What elementary school did you attend?</option>
+                <option value="city">In what city were you born?</option>
             </select>
-            <input type="number" id="delayTime" placeholder="Delay Time (seconds)"> <!-- Input for delay time -->
-            <button onclick="addSensor()">Add Sensor</button> <!-- Button to add a new sensor -->
+            <input type="text" id="securityAnswer" placeholder="Your Answer" required>
+            <button onclick="createPassword()">Create Password</button>
+            <p id="createPasswordMessage"></p>
+            <button onclick="showSection('signIn')" class="back-button">Back</button>
         </div>
-        
-        <!-- Section to display the list of configured sensors (initially hidden) -->
-        <div id="sensorList" class="section" style="display: none;">
-            <h2>Configured Sensors</h2> <!-- Subheading for this section -->
-            <ul id="sensors"></ul> <!-- Unordered list to display configured sensors -->
+
+        <!-- Forgot Password Section -->
+        <div id="forgotPassword" class="section hidden">
+            <h2>Forgot Password</h2>
+            <select id="securityQuestionCheck" required>
+                <option value="">Select Your Security Question</option>
+                <option value="pet">What was the name of your first pet?</option>
+                <option value="school">What elementary school did you attend?</option>
+                <option value="city">In what city were you born?</option>
+            </select>
+            <input type="text" id="securityAnswerCheck" placeholder="Your Answer" required>
+            <button onclick="checkSecurityAnswer()">Submit</button>
+            <p id="forgotPasswordMessage"></p>
+            <button onclick="showSection('signIn')" class="back-button">Back</button>
+            <button onclick="showSection('signIn')" class="sign-in-button">Sign In</button>
+            <button onclick="showCreatePassword()" class="sign-up-button">Sign Up</button>
         </div>
-        
-        <!-- Section for simulating alarms (initially hidden) -->
-        <div id="alarmSimulation" class="section" style="display: none;">
-            <h2>Alarm Simulation</h2> <!-- Subheading for this section -->
-            <button onclick="simulateAlarm()">Simulate Alarm</button> <!-- Button to simulate an alarm -->
-            <div id="alarmInfo"></div> <!-- Div to display information about simulated alarms -->
+
+        <!-- Password Setup Section -->
+        <div id="passwordSetup" class="section hidden">
+            <h2>Set Master Password</h2>
+            <input type="password" id="password1" placeholder="Enter password" 
+                   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{16,}" 
+                   title="Must contain at least one number, one uppercase and lowercase letter, and at least 16 or more characters"
+                   required>
+            <input type="password" id="password2" placeholder="Confirm password" required>
+            <button onclick="setMasterPassword()">Set Password</button>
+            <p id="passwordMessage"></p>
         </div>
-        
+
+        <!-- Main Application Section -->
+        <div id="mainApp" class="section hidden">
+            <h2>Welcome to Dynasty Defense</h2>
+            
+            <!-- Sensor Configuration Section -->
+            <div id="sensorConfig">
+                <h3>Sensor Configuration</h3>
+                <input type="number" id="sensorNumber" placeholder="Sensor Number" required>
+                <select id="sensorType" required>
+                    <option value="">Select Type</option>
+                    <option value="fire">Fire</option>
+                    <option value="smoke">Smoke</option>
+                    <option value="heat">Heat</option>
+                </select>
+                <input type="number" id="delayTime" placeholder="Delay Time (seconds)" required>
+                <button onclick="addSensor()">Add Sensor</button>
+            </div>
+
+            <!-- Sensor List Section -->
+            <div id="sensorList">
+                <h3>Configured Sensors</h3>
+                <ul id="sensors"></ul>
+            </div>
+
+            <!-- Alarm Simulation Section -->
+            <div id="alarmSimulation">
+                <h3>Alarm Simulation</h3>
+                <button onclick="simulateAlarm()">Simulate Alarm</button>
+                <div id="alarmInfo"></div>
+            </div>
+
+            <button onclick="signOut()" class="sign-out-button">Sign Out</button>
+        </div>
     </div>
-    <script src="script.js"></script> <!-- Links to an external JavaScript file for functionality -->
+
+    <!-- Modal for pop-up messages -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="modalMessage"></p>
+        </div>
+    </div>
+
+    <!-- Password Reentry Section -->
+    <div id="passwordReentry" class="section hidden">
+        <h2>Session Locked</h2>
+        <input type="password" id="reentryPassword" placeholder="Re-enter password" required>
+        <button onclick="unlockScreen()">Unlock</button>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
