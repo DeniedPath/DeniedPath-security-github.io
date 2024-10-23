@@ -1,0 +1,44 @@
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  .dashboard-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  
+  .dashboard-card:hover {
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+  }
+  
+  .sensor-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .sensor-list li {
+    background-color: #f0f0f0;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .sensor-list li:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .alarm-info {
+    background-color: var(--error-color);
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 10px;
+    animation: pulse 2s infinite;
+  }

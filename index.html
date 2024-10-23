@@ -4,9 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynasty Defense Alarm Systems & Monitoring</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="Style2.css">
+    <head>
+        <!-- ... other head elements ... -->
+        <link rel="stylesheet" href="/CSS/main.css">
+        <link rel="stylesheet" href="/CSS/forms.css">
+        <link rel="stylesheet" href="/CSS/animations.css">
+        <link rel="stylesheet" href="/CSS/modal.css">
+        <link rel="stylesheet" href="/CSS/dashboard.css">
+        <link rel="stylesheet" href="/CSS/theme.css">
+      </head>
 </head>
 <body>
     <div class="container">
@@ -15,94 +21,96 @@
         <!-- Sign In Section -->
         <div id="signIn" class="section">
             <h2>Sign In</h2>
-            <input type="password" id="signInPassword" placeholder="Enter Your Password" autocomplete="current-password" required>
+            <input type="text" id="signInUsername" placeholder="Username">
+            <input type="password" id="signInPassword" placeholder="Password">
             <button onclick="signIn()">Sign In</button>
             <button onclick="showAdminLogin()">Admin Login</button>
             <p><a href="#" onclick="showForgotPassword()">Forgot Password?</a></p>
-            <p>New user? <a href="#" onclick="showCreatePassword()">Create Password</a></p>
+            <p>New user? <a href="#" onclick="showCreateAccount()">Create Account</a></p>
         </div>
 
-        <!-- Create Password Section -->
-        <div id="createPassword" class="section hidden">
-            <h2>Create Password</h2>
-            <input type="password" id="newPassword1" placeholder="Enter New Password" 
-                   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{16,}" 
-                   title="Must contain at least one number, one uppercase and lowercase letter, and at least 16 or more characters"
-                   autocomplete="new-password" required>
-            <input type="password" id="newPassword2" placeholder="Confirm New Password" required>
-            <select id="securityQuestion" required>
+        <!-- Create Account Section -->
+        <div id="createAccount" class="section hidden">
+            <h2>Create Account</h2>
+            <input type="text" id="newUsername" placeholder="Username">
+            <input type="password" id="newPassword1" placeholder="Password">
+            <input type="password" id="newPassword2" placeholder="Confirm Password">
+            <select id="securityQuestion">
                 <option value="">Select a Security Question</option>
                 <option value="pet">What was the name of your first pet?</option>
                 <option value="school">What elementary school did you attend?</option>
                 <option value="city">In what city were you born?</option>
             </select>
-            <input type="text" id="securityAnswer" placeholder="Your Answer" required>
-            <button onclick="createPassword()">Create Password</button>
-            <p id="createPasswordMessage"></p>
-            <button onclick="showSection('signIn')" class="back-button">Back</button>
+            <input type="text" id="securityAnswer" placeholder="Your Answer">
+            <button onclick="createAccount()">Create Account</button>
+            <button onclick="showSection('signIn')">Back</button>
         </div>
 
         <!-- Forgot Password Section -->
         <div id="forgotPassword" class="section hidden">
             <h2>Forgot Password</h2>
-            <select id="securityQuestionCheck" required>
+            <input type="text" id="forgotPasswordUsername" placeholder="Username">
+            <select id="securityQuestionCheck">
                 <option value="">Select Your Security Question</option>
                 <option value="pet">What was the name of your first pet?</option>
                 <option value="school">What elementary school did you attend?</option>
                 <option value="city">In what city were you born?</option>
             </select>
-            <input type="text" id="securityAnswerCheck" placeholder="Your Answer" required>
+            <input type="text" id="securityAnswerCheck" placeholder="Your Answer">
             <button onclick="checkSecurityAnswer()">Submit</button>
-            <p id="forgotPasswordMessage"></p>
-            <button onclick="showSection('signIn')" class="back-button">Back</button>
-            <button onclick="showSection('signIn')" class="sign-in-button">Sign In</button>
-            <button onclick="showCreatePassword()" class="sign-up-button">Sign Up</button>
+            <button onclick="showSection('signIn')">Back</button>
         </div>
 
-        <!-- Password Setup Section -->
-        <div id="passwordSetup" class="section hidden">
-            <h2>Set Master Password</h2>
-            <input type="password" id="password1" placeholder="Enter password" 
-                   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{16,}" 
-                   title="Must contain at least one number, one uppercase and lowercase letter, and at least 16 or more characters"
-                   required>
-            <input type="password" id="password2" placeholder="Confirm password" required>
-            <button onclick="setMasterPassword()">Set Password</button>
-            <p id="passwordMessage"></p>
-        </div>
-
-        <!-- Main Application Section -->
-        <div id="mainApp" class="section hidden">
-            <h2>Welcome to Dynasty Defense</h2>
-            
-            <!-- Sensor Configuration Section -->
+        <!-- User Dashboard Section -->
+        <div id="userDashboard" class="section hidden">
+            <h2>User Dashboard</h2>
             <div id="sensorConfig">
-                <h3>Sensor Configuration</h3>
-                <input type="number" id="sensorNumber" placeholder="Sensor Number" required>
-                <select id="sensorType" required>
+                <h3>Add Sensor</h3>
+                <input type="number" id="sensorNumber" placeholder="Sensor Number">
+                <select id="sensorType">
                     <option value="">Select Type</option>
                     <option value="fire">Fire</option>
                     <option value="smoke">Smoke</option>
                     <option value="heat">Heat</option>
                 </select>
-                <input type="number" id="delayTime" placeholder="Delay Time (seconds)" required>
+                <input type="text" id="sensorBuilding" placeholder="Building">
+                <input type="number" id="sensorFloor" placeholder="Floor">
+                <input type="text" id="sensorRoom" placeholder="Room">
+                <input type="number" id="delayTime" placeholder="Delay Time (seconds)">
                 <button onclick="addSensor()">Add Sensor</button>
             </div>
-
-            <!-- Sensor List Section -->
             <div id="sensorList">
                 <h3>Configured Sensors</h3>
                 <ul id="sensors"></ul>
             </div>
-
-            <!-- Alarm Simulation Section -->
             <div id="alarmSimulation">
                 <h3>Alarm Simulation</h3>
                 <button onclick="simulateAlarm()">Simulate Alarm</button>
                 <div id="alarmInfo"></div>
             </div>
+            <button onclick="logout()">Logout</button>
+        </div>
 
-            <button onclick="signOut()" class="sign-out-button">Sign Out</button>
+        <!-- Admin Dashboard Section -->
+        <div id="adminDashboard" class="section hidden">
+            <h2>Admin Dashboard</h2>
+            <div id="userManagement">
+                <h3>User Management</h3>
+                <ul id="userList"></ul>
+            </div>
+            <div id="adminLogs">
+                <h3>Admin Logs</h3>
+                <ul id="logList"></ul>
+            </div>
+            <button onclick="changeAdminPassword()">Change Admin Password</button>
+            <button onclick="logout()">Logout</button>
+        </div>
+
+        <!-- Password Reentry Section -->
+        <div id="passwordReentry" class="section hidden">
+            <h2>Session Locked</h2>
+            <input type="password" id="reentryPassword" placeholder="Re-enter password">
+            <button onclick="unlockScreen()">Unlock</button>
         </div>
     </div>
 
@@ -114,13 +122,8 @@
         </div>
     </div>
 
-    <!-- Password Reentry Section -->
-    <div id="passwordReentry" class="section hidden">
-        <h2>Session Locked</h2>
-        <input type="password" id="reentryPassword" placeholder="Re-enter password" required>
-        <button onclick="unlockScreen()">Unlock</button>
-    </div>
-
-    <script src="script.js"></script>
+    <script src="/Javascript/users.js"></script>
+    <script src="/Javascript/admin.js"></script>
+    <script src="/Javascript/main.js"></script>
 </body>
 </html>
