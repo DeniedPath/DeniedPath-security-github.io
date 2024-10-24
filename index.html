@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynasty Defense Alarm Systems & Monitoring</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/CSS/main.css">
     <link rel="stylesheet" href="/CSS/forms.css">
     <link rel="stylesheet" href="/CSS/animations.css">
@@ -12,113 +14,136 @@
     <link rel="stylesheet" href="/CSS/theme.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Dynasty Defense Alarm Systems & Monitoring</h1>
+    <div class="app-container">
+        <header class="app-header">
+            <h1><i class="fas fa-shield-alt"></i> Dynasty Defense</h1>
+            <button id="themeToggle" class="theme-toggle"><i class="fas fa-moon"></i></button>
+        </header>
 
-        <!-- Sign In Section -->
-        <div id="signIn" class="section">
-            <h2>Sign In</h2>
-            <input type="text" id="signInUsername" placeholder="Username">
-            <input type="password" id="signInPassword" placeholder="Password">
-            <button onclick="signIn()">Sign In</button>
-            <button onclick="showAdminLogin()">Admin Login</button>
-            <p><a href="#" onclick="showForgotPassword()">Forgot Password?</a></p>
-            <p>New user? <a href="#" onclick="showCreateAccount()">Create Account</a></p>
-        </div>
+        <main class="app-main">
+            <!-- Sign In Section -->
+            <section id="signIn" class="card">
+                <h2>Sign In</h2>
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="signInUsername" placeholder="Username">
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="signInPassword" placeholder="Password">
+                </div>
+                <button onclick="signIn()" class="btn-primary">Sign In</button>
+                <button onclick="showAdminLogin()" class="btn-secondary">Admin Login</button>
+                <p><a href="#" onclick="showForgotPassword()">Forgot Password?</a></p>
+                <p>New user? <a href="#" onclick="showCreateAccount()">Create Account</a></p>
+            </section>
 
-        <!-- Create Account Section -->
-        <div id="createAccount" class="section hidden">
-            <h2>Create Account</h2>
-            <input type="text" id="newUsername" placeholder="Username">
-            <input type="password" id="newPassword1" placeholder="Password">
-            <input type="password" id="newPassword2" placeholder="Confirm Password">
-            <select id="securityQuestion">
-                <option value="">Select a Security Question</option>
-                <option value="pet">What was the name of your first pet?</option>
-                <option value="school">What elementary school did you attend?</option>
-                <option value="city">In what city were you born?</option>
-            </select>
-            <input type="text" id="securityAnswer" placeholder="Your Answer">
-            <button onclick="createAccount()">Create Account</button>
-            <button onclick="showSection('signIn')">Back</button>
-        </div>
-
-        <!-- Forgot Password Section -->
-        <div id="forgotPassword" class="section hidden">
-            <h2>Forgot Password</h2>
-            <input type="text" id="forgotPasswordUsername" placeholder="Username">
-            <select id="securityQuestionCheck">
-                <option value="">Select Your Security Question</option>
-                <option value="pet">What was the name of your first pet?</option>
-                <option value="school">What elementary school did you attend?</option>
-                <option value="city">In what city were you born?</option>
-            </select>
-            <input type="text" id="securityAnswerCheck" placeholder="Your Answer">
-            <button onclick="checkSecurityAnswer()">Submit</button>
-            <button onclick="showSection('signIn')">Back</button>
-        </div>
-
-        <!-- User Dashboard Section -->
-        <div id="userDashboard" class="section hidden">
-            <h2>User Dashboard</h2>
-            <div id="sensorConfig">
-                <h3>Add Sensor</h3>
-                <input type="number" id="sensorNumber" placeholder="Sensor Number">
-                <select id="sensorType">
-                    <option value="">Select Type</option>
-                    <option value="fire">Fire</option>
-                    <option value="smoke">Smoke</option>
-                    <option value="heat">Heat</option>
+            <!-- Create Account Section -->
+            <section id="createAccount" class="card hidden">
+                <h2>Create Account</h2>
+                <input type="text" id="newUsername" placeholder="Username">
+                <input type="password" id="newPassword1" placeholder="Password">
+                <input type="password" id="newPassword2" placeholder="Confirm Password">
+                <select id="securityQuestion">
+                    <option value="">Select a Security Question</option>
+                    <option value="pet">What was the name of your first pet?</option>
+                    <option value="school">What elementary school did you attend?</option>
+                    <option value="city">In what city were you born?</option>
                 </select>
-                <input type="text" id="sensorBuilding" placeholder="Building">
-                <input type="number" id="sensorFloor" placeholder="Floor">
-                <input type="text" id="sensorRoom" placeholder="Room">
-                <input type="number" id="delayTime" placeholder="Delay Time (seconds)">
-                <button onclick="addSensor()">Add Sensor</button>
-            </div>
-            <div id="sensorList">
-                <h3>Configured Sensors</h3>
-                <ul id="sensors"></ul>
-            </div>
-            <div id="alarmSimulation">
-                <h3>Alarm Simulation</h3>
-                <button onclick="simulateAlarm()">Simulate Alarm</button>
-                <div id="alarmInfo"></div>
-            </div>
-            <button onclick="logout()">Logout</button>
-        </div>
+                <input type="text" id="securityAnswer" placeholder="Your Answer">
+                <button onclick="createAccount()" class="btn-primary">Create Account</button>
+                <button onclick="showSection('signIn')" class="btn-secondary">Back</button>
+            </section>
 
-        <!-- Admin Dashboard Section -->
-        <div id="adminDashboard" class="section hidden">
-            <h2>Admin Dashboard</h2>
-            <div id="userManagement">
-                <h3>User Management</h3>
-                <ul id="userList"></ul>
-            </div>
-            <div id="adminLogs">
-                <h3>Admin Logs</h3>
-                <ul id="logList"></ul>
-            </div>
-            <button onclick="changeAdminPassword()">Change Admin Password</button>
-            <button onclick="logout()">Logout</button>
-        </div>
+            <!-- Forgot Password Section -->
+            <section id="forgotPassword" class="card hidden">
+                <h2>Forgot Password</h2>
+                <input type="text" id="forgotPasswordUsername" placeholder="Username">
+                <select id="securityQuestionCheck">
+                    <option value="">Select Your Security Question</option>
+                    <option value="pet">What was the name of your first pet?</option>
+                    <option value="school">What elementary school did you attend?</option>
+                    <option value="city">In what city were you born?</option>
+                </select>
+                <input type="text" id="securityAnswerCheck" placeholder="Your Answer">
+                <button onclick="checkSecurityAnswer()" class="btn-primary">Submit</button>
+                <button onclick="showSection('signIn')" class="btn-secondary">Back</button>
+            </section>
 
-        <!-- Password Reentry Section -->
-        <div id="passwordReentry" class="section hidden">
-            <h2>Session Locked</h2>
-            <input type="password" id="reentryPassword" placeholder="Re-enter password">
-            <button onclick="unlockScreen()">Unlock</button>
-        </div>
+            <!-- User Dashboard Section -->
+            <section id="userDashboard" class="dashboard hidden">
+                <h2>User Dashboard</h2>
+                <!-- Add Sensor Section -->
+                <div id="sensorConfig" class="card">
+                    <h3>Add Sensor</h3>
+                    <input type="number" id="sensorNumber" placeholder="Sensor Number">
+                    <select id="sensorType">
+                        <option value="">Select Type</option>
+                        <option value="fire">Fire</option>
+                        <option value="smoke">Smoke</option>
+                        <option value="heat">Heat</option>
+                    </select>
+                    <input type="text" id="sensorBuilding" placeholder="Building">
+                    <input type="number" id="sensorFloor" placeholder="Floor">
+                    <input type="text" id="sensorRoom" placeholder="Room">
+                    <input type="number" id="delayTime" placeholder="Delay Time (seconds)">
+                    <button onclick="addSensor()" class="btn-primary">Add Sensor</button>
+                </div>
+
+                <!-- Configured Sensors List -->
+                <div id="sensorList" class="card">
+                    <h3>Configured Sensors</h3>
+                    <ul id="sensors"></ul>
+                </div>
+
+                <!-- Alarm Simulation Section -->
+                <div id="alarmSimulation" class="card">
+                    <h3>Alarm Simulation</h3>
+                    <button onclick="simulateAlarm()" class="btn-danger">Simulate Alarm</button>
+                    <div id="alarmInfo"></div>
+                </div>
+
+                <!-- Logout Button -->
+                <button onclick="logout()" class="btn-secondary">Logout</button>
+            </section>
+
+            <!-- Admin Dashboard Section -->
+            <section id="adminDashboard" class="dashboard hidden">
+                <h2>Admin Dashboard</h2>
+                <div id="userManagement" class="card">
+                    <h3>User Management</h3>
+                    <ul id="userList"></ul>
+                </div>
+                <div id="adminLogs" class="card">
+                    <h3>Admin Logs</h3>
+                    <ul id="logList"></ul>
+                </div>
+                <button onclick="changeAdminPassword()" class="btn-secondary">Change Admin Password</button>
+                <button onclick="logout()" class="btn-secondary">Logout</button>
+            </section>
+
+            <!-- Password Reentry Section -->
+            <div id="passwordReentry" class="hidden">
+                <h2>Session Locked</h2>
+                <input type="password" id="reentryPassword" placeholder="Re-enter password">
+                <button onclick="unlockScreen()">Unlock</button>
+            </div>
+        </main>
+
+        <footer class="app-footer">
+            <p>&copy; 2023 Dynasty Defense. All rights reserved.</p>
+        </footer>
     </div>
 
     <!-- Modal for pop-up messages -->
     <div id="modal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content card">
             <span class="close">&times;</span>
             <p id="modalMessage"></p>
         </div>
     </div>
 
+    <!-- Include JavaScript files -->
     <script src="/Javascript/users.js"></script>
     <script src="/Javascript/admin.js"></script>
     <script src="/Javascript/main.js"></script>

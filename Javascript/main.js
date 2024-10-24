@@ -2,19 +2,34 @@
 
 // Global variables
 let currentUser = null;
-let users = [];
 let sensors = [];
 const inactivityTimeout = 1 * 60 * 1000; // 1 minute in milliseconds
 let inactivityTimer;
 
 // Function to show only one section and hide others
+// Function to show only one section and hide others
 function showSection(sectionId) {
-    console.log('Showing section:', sectionId);
-    const sections = ['signIn', 'createAccount', 'forgotPassword', 'userDashboard', 'adminDashboard', 'passwordReentry'];
+    const sections = ['signIn', 'createAccount', 'forgotPassword', 'mainApp', 'adminDashboard', 'passwordReentry'];
     sections.forEach(section => {
-        document.getElementById(section).style.display = 'none';
-    });
-    document.getElementById(sectionId).style.display = 'block';
+      const element = document.getElementById(section);
+      if (element) {
+          element.style.display = 'none';
+      } else {
+          console.error(`Element with ID '${section}' not found.`);
+      }
+  });
+  const activeElement = document.getElementById(sectionId);
+  if (activeElement) {
+      activeElement.style.display = 'block';
+  } else {
+      console.error(`Active element with ID '${sectionId}' not found.`);
+  }
+}
+
+// Function to show user dashboard
+function showUserDashboard() {
+    showSection('userDashboard');
+    updateSensorList();
 }
 
 // Function to handle user login
@@ -286,3 +301,10 @@ function showPopup(message) {
     }
 }
 ``
+// Add this to your main.js file
+document.getElementById('themeToggle').addEventListener('click', function() {
+    document.body.classList.toggle('dark-theme');
+    this.innerHTML = document.body.classList.contains('dark-theme') ? 
+        '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+});
+
