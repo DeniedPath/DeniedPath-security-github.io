@@ -241,12 +241,22 @@ function unlockScreen() {
 }
 
 // Function to log out
+// Function to log out
 function logout() {
     currentUser = null;
     showSection('signIn');
     document.getElementById('signInUsername').value = '';
     document.getElementById('signInPassword').value = '';
     clearTimeout(inactivityTimer);
+    
+    // Hide all other sections
+    const sections = ['createAccount', 'forgotPassword', 'userDashboard', 'adminDashboard', 'passwordReentry', 'mainApp'];
+    sections.forEach(section => {
+        const element = document.getElementById(section);
+        if (element) {
+            element.style.display = 'none';
+        }
+    });
 }
 
 // Function to save users to local storage
