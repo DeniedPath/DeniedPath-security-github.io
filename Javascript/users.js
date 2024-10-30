@@ -5,12 +5,10 @@ function loadUsers() {
     if (storedUsers) {
         users = JSON.parse(storedUsers);
     } else {
-        // Create a default admin user if no users exist
+        // Initialize with a default admin user if no users exist
         users = [{
             username: 'admin',
-            password: 'Launchpad101@',
-            securityQuestion: 'What is the default admin username?',
-            securityAnswer: 'admin',
+            password: adminPassword,
             isAdmin: true
         }];
         saveUsers();
@@ -20,6 +18,12 @@ function loadUsers() {
 function saveUsers() {
     localStorage.setItem('users', JSON.stringify(users));
 }
+
+// Call this function when the page loads
+window.onload = function() {
+    loadUsers();
+    showSection('signIn');
+};
 
 function createAccount() {
     const username = document.getElementById('newUsername').value;

@@ -42,4 +42,5 @@ function showAdminDashboard() {
     showSection('adminDashboard');
     updateUserList();
     updateAdminLogs();
+    // Add any admin-specific UI updates here
 }

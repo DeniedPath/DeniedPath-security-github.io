@@ -5,6 +5,7 @@ let currentUser = null;
 let sensors = [];
 const inactivityTimeout = 1 * 60 * 1000; // 1 minute in milliseconds
 let inactivityTimer;
+let adminPassword = 'Launchpad101@'; // Default admin password
 
 // Function to show only one section and hide others
 // Function to show only one section and hide others
@@ -24,6 +25,23 @@ function showSection(sectionId) {
   } else {
       console.error(`Active element with ID '${sectionId}' not found.`);
   }
+}
+
+function changeAdminPassword() {
+    const newPassword = prompt("Enter new admin password:");
+    if (newPassword && newPassword.length >= 16 && /[!@#$%^&*(),.?":{}|<>]/.test(newPassword) && /[A-Z]/.test(newPassword)) {
+        adminPassword = newPassword;
+        // Update the admin user in the users array
+        const adminUser = users.find(u => u.isAdmin);
+        if (adminUser) {
+            adminUser.password = newPassword;
+        }
+        saveUsers();
+        localStorage.setItem('adminPassword', adminPassword);
+        showPopup('Admin password changed successfully!');
+    } else {
+        showPopup("Password must be at least 16 characters long, contain a special character, and a capital letter!");
+    }
 }
 
 // Function to show user dashboard
@@ -55,12 +73,9 @@ function signIn() {
 
 // Function to show admin login prompt
 function showAdminLogin() {
-    console.log('Admin login function called');
     const enteredPassword = prompt("Enter Admin Password:");
-    const adminUser = users.find(u => u.isAdmin && u.password === enteredPassword);
-    
-    if (adminUser) {
-        currentUser = adminUser;
+    if (enteredPassword === adminPassword) {
+        currentUser = { username: 'admin', isAdmin: true };
         showAdminDashboard();
     } else {
         showPopup('Incorrect admin password.');
