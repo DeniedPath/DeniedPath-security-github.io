@@ -1,3 +1,4 @@
+//admin.js
 function updateUserList() {
     const userList = document.getElementById('userList');
     userList.innerHTML = '';

@@ -8,11 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="./CSS/main.css">
     <link rel="stylesheet" href="./CSS/forms.css">
-    <link rel="stylesheet" href="./CSS/animations.css">
     <link rel="stylesheet" href="./CSS/modal.css">
-    <link rel="stylesheet" href="./CSS/dashboard.css">
     <link rel="stylesheet" href="./CSS/theme.css">
-    <link rel="stylesheet" href="./CSS/style.css">
 </head>
 <body>
     <div class="app-container">
@@ -70,65 +67,6 @@
                 <button onclick="checkSecurityAnswer()" class="btn-primary">Submit</button>
                 <button onclick="showSection('signIn')" class="btn-secondary">Back</button>
             </section>
-
-            <!-- User Dashboard Section -->
-            <section id="userDashboard" class="dashboard hidden">
-                <h2>User Dashboard</h2>
-                <!-- Add Sensor Section -->
-                <div id="sensorConfig" class="card">
-                    <h3>Add Sensor</h3>
-                    <input type="number" id="sensorNumber" placeholder="Sensor Number">
-                    <select id="sensorType">
-                        <option value="">Select Type</option>
-                        <option value="fire">Fire</option>
-                        <option value="smoke">Smoke</option>
-                        <option value="heat">Heat</option>
-                    </select>
-                    <input type="text" id="sensorBuilding" placeholder="Building">
-                    <input type="number" id="sensorFloor" placeholder="Floor">
-                    <input type="text" id="sensorRoom" placeholder="Room">
-                    <input type="number" id="delayTime" placeholder="Delay Time (seconds)">
-                    <button onclick="addSensor()" class="btn-primary">Add Sensor</button>
-                </div>
-
-                <!-- Configured Sensors List -->
-                <div id="sensorList" class="card">
-                    <h3>Configured Sensors</h3>
-                    <ul id="sensors"></ul>
-                </div>
-
-                <!-- Alarm Simulation Section -->
-                <div id="alarmSimulation" class="card">
-                    <h3>Alarm Simulation</h3>
-                    <button onclick="simulateAlarm()" class="btn-danger">Simulate Alarm</button>
-                    <div id="alarmInfo"></div>
-                </div>
-
-                <!-- Logout Button -->
-                <button onclick="logout()" class="btn-secondary">Logout</button>
-            </section>
-
-            <!-- Admin Dashboard Section -->
-            <section id="adminDashboard" class="dashboard hidden">
-                <h2>Admin Dashboard</h2>
-                <div id="userManagement" class="card">
-                    <h3>User Management</h3>
-                    <ul id="userList"></ul>
-                </div>
-                <div id="adminLogs" class="card">
-                    <h3>Admin Logs</h3>
-                    <ul id="logList"></ul>
-                </div>
-                <button onclick="changeAdminPassword()" class="btn-secondary">Change Admin Password</button>
-                <button onclick="logout()" class="btn-secondary">Logout</button>
-            </section>
-
-            <!-- Password Reentry Section -->
-            <div id="passwordReentry" class="hidden">
-                <h2>Session Locked</h2>
-                <input type="password" id="reentryPassword" placeholder="Re-enter password">
-                <button onclick="unlockScreen()">Unlock</button>
-            </div>
         </main>
 
         <footer class="app-footer">
@@ -145,9 +83,6 @@
     </div>
 
     <!-- Include JavaScript files -->
-    <script src="./Javascript/users.js"></script>
-    <script src="./Javascript/admin.js"></script>
     <script src="./Javascript/main.js"></script>
-    <script src="./Javascript/app.js"></script>
 </body>
 </html>

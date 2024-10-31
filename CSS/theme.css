@@ -1,41 +1,44 @@
+/* theme.css */
+
 /* Light Theme (default) */
 :root {
-    --primary-color: #1a237e;
-    --secondary-color: #0d47a1;
-    --accent-color: #00c853;
-    --background-color: #f5f5f5;
-    --text-color: #333;
-    --error-color: #d32f2f;
-  }
-  
-  /* Dark Theme */
-  .dark-theme {
-    --primary-color: #3f51b5;
-    --secondary-color: #5c6bc0;
-    --accent-color: #69f0ae;
-    --background-color: #121212;
-    --text-color: #ffffff;
-    --error-color: #ff5252;
-  }
-  
-  /* High Contrast Theme */
-  .high-contrast-theme {
-    --primary-color: #000000;
-    --secondary-color: #ffffff;
-    --accent-color: #ffff00;
-    --background-color: #000000;
-    --text-color: #ffffff;
-    --error-color: #ff0000;
-  }
-  
-  /* Theme Transition */
-  body {
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-  
-  .theme-switch {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1000;
-  }
+  --primary-color: #1a237e;
+  --secondary-color: #0d47a1;
+  --accent-color: #00c853;
+  --background-color: #f5f5f5;
+  --text-color: #333;
+  --error-color: #d32f2f;
+  --card-background: #ffffff;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Dark Theme */
+body.dark-theme {
+  --primary-color: #3f51b5;
+  --secondary-color: #5c6bc0;
+  --accent-color: #69f0ae;
+  --background-color: #121212;
+  --text-color: #ffffff;
+  --error-color: #ff5252;
+  --card-background: #1e1e1e;
+  --shadow-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Theme Transition */
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Theme toggle button styles */
+#themeToggle {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-size: 24px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+#themeToggle:hover {
+  color: var(--accent-color);
+}

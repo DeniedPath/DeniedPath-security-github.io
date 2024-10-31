@@ -1,0 +1,45 @@
+/* admin.css */
+
+.admin-main {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.admin-panel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+}
+
+.admin-profile,
+.user-management {
+    flex: 1;
+    min-width: 300px;
+}
+
+#add-user-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#user-list {
+    margin-top: 20px;
+}
+
+.user-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--card-background);
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.user-item button {
+    margin-left: 10px;
+}

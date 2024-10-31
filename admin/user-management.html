@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Dynasty Defense</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../CSS/main.css">
+    <link rel="stylesheet" href="../CSS/forms.css">
+    <link rel="stylesheet" href="../CSS/animations.css">
+    <link rel="stylesheet" href="../CSS/modal.css">
+    <link rel="stylesheet" href="../CSS/dashboard.css">
+    <link rel="stylesheet" href="../CSS/theme.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1><i class="fas fa-shield-alt"></i> Dynasty Defense - Admin Dashboard</h1>
+            <button id="themeToggle" class="theme-toggle"><i class="fas fa-moon"></i></button>
+        </header>
+
+        <main class="admin-main">
+            <div class="admin-panel">
+                <section class="admin-profile card">
+                    <h2>Admin Profile</h2>
+                    <p><strong>Username:</strong> <span id="admin-username">Admin</span></p>
+                    <p><strong>Email:</strong> <span id="admin-email">admin@dynastydefense.com</span></p>
+                    <button id="changeAdminPassword" class="btn-secondary">Change Password</button>
+                </section>
+
+                <section class="user-management card">
+                    <h2>User Management</h2>
+                    <form id="add-user-form">
+                        <input type="text" id="new-username" placeholder="Username" required>
+                        <input type="email" id="new-email" placeholder="Email" required>
+                        <input type="password" id="new-password" placeholder="Password" required>
+                        <select id="user-role">
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                        <button type="submit" class="btn-primary">Add User</button>
+                    </form>
+                    <div id="user-list">
+                        <!-- User list will be populated here -->
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <footer class="app-footer">
+            <p>&copy; 2023 Dynasty Defense. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content card">
+            <span class="close">&times;</span>
+            <p id="modalMessage"></p>
+        </div>
+    </div>
+
+    <script src="../Javascript/admin.js"></script>
+</body>
+</html>

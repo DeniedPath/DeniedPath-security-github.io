@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configure Sensors - Dynasty Defense</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../CSS/main.css">
+    <link rel="stylesheet" href="../CSS/forms.css">
+    <link rel="stylesheet" href="../CSS/animations.css">
+    <link rel="stylesheet" href="../CSS/modal.css">
+    <link rel="stylesheet" href="../CSS/dashboard.css">
+    <link rel="stylesheet" href="../CSS/theme.css">
+    <link rel="stylesheet" href="configure-sensor-panel.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1><i class="fas fa-shield-alt"></i> Dynasty Defense - Configure Sensors</h1>
+            <button id="themeToggle" class="theme-toggle"><i class="fas fa-moon"></i></button>
+        </header>
+
+        <main class="configure-panel-main">
+            <div class="config-section">
+                <h2>Manage Floors</h2>
+                <div class="input-group">
+                    <input type="text" id="floor-input" placeholder="Enter Floor Name">
+                    <button id="add-floor-button" class="btn-primary">Add Floor</button>
+                </div>
+                <ul id="floor-list" class="config-list"></ul>
+            </div>
+
+            <div id="sensor-management" class="config-section">
+                <h2>Manage Sensors for <span id="selected-floor">Select a Floor</span></h2>
+                <div class="input-group">
+                    <select id="sensor-type-selector">
+                        <option value="fire">Fire Sensor</option>
+                        <option value="heat">Heat Sensor</option>
+                        <option value="smoke">Smoke Sensor</option>
+                    </select>
+                    <input type="text" id="sensor-input" placeholder="Enter Sensor Name">
+                    <button id="add-sensor-button" class="btn-primary">Add Sensor</button>
+                </div>
+                <ul id="sensor-list" class="config-list"></ul>
+            </div>
+        </main>
+
+        <footer class="app-footer">
+            <a href="sensor-control-panel.html" class="btn-secondary">Back to Control Panel</a>
+            <p>&copy; 2023 Dynasty Defense. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="../javascript/main.js"></script>
+    <script src="configure-sensor-panel.js"></script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynasty Defense - Settings</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../CSS/main.css">
+    <link rel="stylesheet" href="settings.css">
+</head>
+<body>
+    <div class="settings-container">
+        <header class="settings-header">
+            <h1><i class="fas fa-cog"></i> System Settings</h1>
+            <button id="themeToggle" class="theme-toggle"><i class="fas fa-adjust"></i></button>
+        </header>
+
+        <nav class="settings-nav">
+            <button class="nav-btn active" data-target="account">Account</button>
+            <button class="nav-btn" data-target="security">Security</button>
+            <button class="nav-btn" data-target="system">System</button>
+        </nav>
+
+        <main class="settings-content">
+            <section id="account" class="settings-section active">
+                <h2>Account Settings</h2>
+                <div class="setting-item">
+                    <label>Username</label>
+                    <input type="text" id="admin-username" readonly>
+                    <button class="edit-btn"><i class="fas fa-pencil-alt"></i></button>
+                </div>
+                <div class="setting-item">
+                    <label>Email</label>
+                    <input type="email" id="admin-email" readonly>
+                    <button class="edit-btn"><i class="fas fa-pencil-alt"></i></button>
+                </div>
+                <div class="setting-item">
+                    <label>Password</label>
+                    <input type="password" id="admin-password" value="********" readonly>
+                    <button id="reset-password-button" class="edit-btn"><i class="fas fa-key"></i></button>
+                </div>
+            </section>
+
+            <section id="security" class="settings-section">
+                <h2>Security Settings</h2>
+                <div class="setting-item">
+                    <label>Two-Factor Authentication</label>
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="twoFA">
+                        <label for="twoFA"></label>
+                    </div>
+                </div>
+                <div class="setting-item">
+                    <label>Session Timeout (minutes)</label>
+                    <input type="number" id="session-timeout" min="5" max="60" value="30">
+                </div>
+                <button id="logout-button" class="btn-primary">Logout</button>
+            </section>
+
+            <section id="system" class="settings-section">
+                <h2>System Controls</h2>
+                <div class="setting-item">
+                    <label>System Version</label>
+                    <span id="system-version">1.0.0</span>
+                </div>
+                <div class="setting-item">
+                    <label>Last Update</label>
+                    <span id="last-update">2023-05-15</span>
+                </div>
+                <button id="clear-cache-button" class="btn-secondary">Clear Cache</button>
+                <button id="factory-reset-button" class="btn-danger">Factory Reset</button>
+            </section>
+        </main>
+
+        <footer class="settings-footer">
+            <a href="../dashboard/dashboard.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+        </footer>
+    </div>
+
+    <script src="../Javascript/main.js"></script>
+    <script src="settings.js"></script>
+</body>
+</html>

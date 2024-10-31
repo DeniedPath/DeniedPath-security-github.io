@@ -2,143 +2,99 @@
 
 // Global variables
 let currentUser = null;
-let sensors = [];
 const inactivityTimeout = 1 * 60 * 1000; // 1 minute in milliseconds
 let inactivityTimer;
-let adminPassword = 'Launchpad101@'; // Default admin password
 
-// Function to show only one section and hide others
-// Function to show only one section and hide others
-function showSection(sectionId) {
-    const sections = ['signIn', 'createAccount', 'forgotPassword', 'mainApp', 'adminDashboard', 'passwordReentry'];
-    sections.forEach(section => {
-      const element = document.getElementById(section);
-      if (element) {
-          element.style.display = 'none';
-      } else {
-          console.error(`Element with ID '${section}' not found.`);
-      }
-  });
-  const activeElement = document.getElementById(sectionId);
-  if (activeElement) {
-      activeElement.style.display = 'block';
-  } else {
-      console.error(`Active element with ID '${sectionId}' not found.`);
-  }
-}
+// Master username and password for login
+const masterUsername = "ManIWantToSleep";
+const masterPassword = "S3cur3#AlarmSy$tem";
 
-function changeAdminPassword() {
-    const newPassword = prompt("Enter new admin password:");
-    if (newPassword && newPassword.length >= 16 && /[!@#$%^&*(),.?":{}|<>]/.test(newPassword) && /[A-Z]/.test(newPassword)) {
-        adminPassword = newPassword;
-        // Update the admin user in the users array
-        const adminUser = users.find(u => u.isAdmin);
-        if (adminUser) {
-            adminUser.password = newPassword;
-        }
-        saveUsers();
-        localStorage.setItem('adminPassword', adminPassword);
-        showPopup('Admin password changed successfully!');
-    } else {
-        showPopup("Password must be at least 16 characters long, contain a special character, and a capital letter!");
-    }
-}
+// Function to handle login
+// In main.js
 
-// Function to show user dashboard
-function showUserDashboard() {
-    showSection('userDashboard');
-    updateSensorList();
-}
-
-// Function to handle user login
+// Function to handle login
 function signIn() {
-    console.log('Sign in function called');
-    const username = document.getElementById('signInUsername').value;
-    const password = document.getElementById('signInPassword').value;
-    
+    const username = document.getElementById("signInUsername").value.trim();
+    const password = document.getElementById("signInPassword").value.trim();
+
+    // Retrieve admin data from local storage
+    const storedAdmin = JSON.parse(localStorage.getItem("admin"));
+
+    // Retrieve regular users from local storage
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+
+    // Check if it's the admin
+    if (storedAdmin && username === storedAdmin.username && password === storedAdmin.password) {
+        currentUser = { username: username, isAdmin: true };
+        window.location.href = 'dashboard/dashboard.html'; // Redirect to admin dashboard
+        return;
+    }
+
+    // Check regular users
     const user = users.find(u => u.username === username && u.password === password);
-    
     if (user) {
-        currentUser = user;
-        if (user.isAdmin) {
-            showAdminDashboard();
-        } else {
-            showUserDashboard();
-        }
-        resetInactivityTimer();
-    } else {
-        showPopup('Incorrect username or password. Please try again.');
+        currentUser = { username: username, isAdmin: false };
+        window.location.href = 'dashboard/dashboard.html'; // Redirect to user dashboard
+        return;
     }
-}
 
-// Function to show admin login prompt
-function showAdminLogin() {
-    const enteredPassword = prompt("Enter Admin Password:");
-    if (enteredPassword === adminPassword) {
-        currentUser = { username: 'admin', isAdmin: true };
-        showAdminDashboard();
-    } else {
-        showPopup('Incorrect admin password.');
-    }
-}
-
-// Function to show forgot password section
-function showForgotPassword() {
-    console.log('Show forgot password function called');
-    showSection('forgotPassword');
-}
-
-// Function to show create account section
-function showCreateAccount() {
-    console.log('Show create account function called');
-    showSection('createAccount');
+    // If no match found
+    showPopup("Invalid username or password.");
 }
 
 // Function to create a new account
 function createAccount() {
-    console.log('Create account function called');
-    const username = document.getElementById('newUsername').value;
-    const password1 = document.getElementById('newPassword1').value;
-    const password2 = document.getElementById('newPassword2').value;
-    const securityQuestion = document.getElementById('securityQuestion').value;
-    const securityAnswer = document.getElementById('securityAnswer').value;
-    
-    if (password1 !== password2) {
-        showPopup('Passwords do not match.');
+    const newUsername = document.getElementById("newUsername").value.trim();
+    const newPassword1 = document.getElementById("newPassword1").value;
+    const newPassword2 = document.getElementById("newPassword2").value;
+    const securityQuestion = document.getElementById("securityQuestion").value;
+    const securityAnswer = document.getElementById("securityAnswer").value;
+
+    if (newPassword1 !== newPassword2) {
+        showPopup("Passwords do not match.");
         return;
     }
-    
-    if (!username || !password1 || !securityQuestion || !securityAnswer) {
-        showPopup('Please fill in all fields.');
+
+    if (newPassword1.length < 16 || !/[A-Z]/.test(newPassword1) || !/[!@#$%^&*]/.test(newPassword1)) {
+        showPopup("Password must be at least 16 characters long, with one capital letter and one special character.");
         return;
     }
-    
-    if (users.some(u => u.username === username)) {
-        showPopup('Username already exists. Please choose a different one.');
+
+    if (!newUsername || !securityQuestion || !securityAnswer) {
+        showPopup("Please fill in all fields.");
         return;
     }
-    
+
+    // Check if username already exists
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    if (users.some(user => user.username === newUsername)) {
+        showPopup("Username already exists. Please choose a different one.");
+        return;
+    }
+
     const newUser = {
-        username: username,
-        password: password1,
+        username: newUsername,
+        password: newPassword1,
         securityQuestion: securityQuestion,
         securityAnswer: securityAnswer,
         isAdmin: false
     };
-    
+
+    // Add new user to the users array
     users.push(newUser);
-    saveUsers();
-    
-    showPopup('Account created successfully!');
+    localStorage.setItem("users", JSON.stringify(users));
+
+    showPopup("Account created successfully! You can now sign in.");
     showSection('signIn');
 }
 
-// Function to check the security answer
+// Function to check security answer
 function checkSecurityAnswer() {
-    const username = document.getElementById('forgotPasswordUsername').value;
+    const username = document.getElementById('forgotPasswordUsername').value.trim();
     const selectedQuestion = document.getElementById('securityQuestionCheck').value;
-    const providedAnswer = document.getElementById('securityAnswerCheck').value;
+    const providedAnswer = document.getElementById('securityAnswerCheck').value.trim();
 
+    const users = JSON.parse(localStorage.getItem("users")) || [];
     const user = users.find(u => u.username === username);
 
     if (user && user.securityQuestion === selectedQuestion && user.securityAnswer.toLowerCase() === providedAnswer.toLowerCase()) {
@@ -169,145 +125,27 @@ function resetPassword(username) {
         return;
     }
 
-    const user = users.find(u => u.username === username);
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    const userIndex = users.findIndex(u => u.username === username);
     
-    if (user) {
-        user.password = newPassword;
-        saveUsers();
+    if (userIndex !== -1) {
+        users[userIndex].password = newPassword;
+        localStorage.setItem("users", JSON.stringify(users));
         showPopup('Password reset successfully!');
         showSection('signIn');
     }
 }
 
-// Function to add a new sensor
-function addSensor() {
-    const number = document.getElementById('sensorNumber').value;
-    const type = document.getElementById('sensorType').value;
-    const building = document.getElementById('sensorBuilding').value;
-    const floor = document.getElementById('sensorFloor').value;
-    const room = document.getElementById('sensorRoom').value;
-    const status = 'off'; // Default status is off
-    const delay = document.getElementById('delayTime').value;
-
-    if (!number || !type || !building || !floor || !room || !delay) {
-        showPopup("Please fill in all fields!");
-        return;
-    }
-
-    const sensor = { number, type, building, floor, room, status, delay };
-    sensors.push(sensor);
-    updateSensorList();
-    resetInactivityTimer();
-}
-
-// Function to update the list of sensors displayed on the page
-function updateSensorList() {
-    const sensorList = document.getElementById('sensors');
-    sensorList.innerHTML = '';
-    sensors.forEach(sensor => {
-        const li = document.createElement('li');
-        li.textContent = `Sensor ${sensor.number}: ${sensor.type} (${sensor.status}) - Building: ${sensor.building}, Floor: ${sensor.floor}, Room: ${sensor.room} (Delay: ${sensor.delay}s)`;
-        sensorList.appendChild(li);
-    });
-}
-
-// Function to simulate an alarm
-function simulateAlarm() {
-    if (sensors.length === 0) {
-        showPopup("No sensors configured!");
-        return;
-    }
-
-    const randomSensor = sensors[Math.floor(Math.random() * sensors.length)];
-    randomSensor.status = 'on';
-    const alarmInfo = document.getElementById('alarmInfo');
-    alarmInfo.textContent = `ALARM: ${randomSensor.type.toUpperCase()} detected by Sensor ${randomSensor.number} in Building: ${randomSensor.building}, Floor: ${randomSensor.floor}, Room: ${randomSensor.room}!`;
-
-    console.log(`Alarm information sent: ${randomSensor.type} alarm from Sensor ${randomSensor.number}`);
-    updateSensorList();
-    resetInactivityTimer();
-}
-
-// Function to reset the inactivity timer
-function resetInactivityTimer() {
-    clearTimeout(inactivityTimer);
-    inactivityTimer = setTimeout(lockScreen, inactivityTimeout);
-}
-
-// Function to lock the screen
-function lockScreen() {
-    showSection('passwordReentry');
-}
-
-// Function to unlock the screen
-function unlockScreen() {
-    const reenteredPassword = document.getElementById('reentryPassword').value;
-
-    if (reenteredPassword === currentUser.password) {
-        if (currentUser.isAdmin) {
-            showAdminDashboard();
-        } else {
-            showUserDashboard();
-        }
-        resetInactivityTimer();
-    } else {
-        showPopup('Incorrect password. Please try again.');
-    }
-}
-
-// Function to log out
-// Function to log out
-function logout() {
-    currentUser = null;
-    showSection('signIn');
-    document.getElementById('signInUsername').value = '';
-    document.getElementById('signInPassword').value = '';
-    clearTimeout(inactivityTimer);
-    
-    // Hide all other sections
-    const sections = ['createAccount', 'forgotPassword', 'userDashboard', 'adminDashboard', 'passwordReentry', 'mainApp'];
+// Function to show a specific section and hide others
+function showSection(sectionId) {
+    const sections = ['signIn', 'createAccount', 'forgotPassword'];
     sections.forEach(section => {
-        const element = document.getElementById(section);
-        if (element) {
-            element.style.display = 'none';
-        }
+        document.getElementById(section).classList.toggle('hidden', section !== sectionId);
     });
 }
-
-// Function to save users to local storage
-function saveUsers() {
-    console.log('Saving users');
-    localStorage.setItem("users", JSON.stringify(users));
-}
-
-// Function to load users from local storage
-function loadUsers() {
-    console.log('Loading users');
-    const storedUsers = localStorage.getItem('users');
-    if (storedUsers) {
-        users = JSON.parse(storedUsers);
-    }
-}
-
-// Event listeners to reset the timer on user activity
-document.addEventListener("mousemove", resetInactivityTimer);
-document.addEventListener("keypress", resetInactivityTimer);
-
-// Initialize when the page loads
-window.onload = function() {
-    console.log('Page loaded');
-    loadUsers();
-    showSection('signIn');
-};
-
-// Theme toggle function for settings button
-document.getElementById("settingsButton").addEventListener("click", function() {
-    document.body.classList.toggle("dark-theme");
-});
 
 // Show pop-up message function
 function showPopup(message) {
-    console.log('Showing popup:', message);
     const modal = document.getElementById('modal');
     const modalMessage = document.getElementById('modalMessage');
     const span = document.getElementsByClassName('close')[0];
@@ -325,11 +163,15 @@ function showPopup(message) {
         }
     }
 }
-``
-// Add this to your main.js file
+
+// Initialize when the page loads
+window.onload = function() {
+    showSection('signIn');
+};
+
+// Add event listener for theme toggle
 document.getElementById('themeToggle').addEventListener('click', function() {
     document.body.classList.toggle('dark-theme');
     this.innerHTML = document.body.classList.contains('dark-theme') ? 
         '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
 });
-

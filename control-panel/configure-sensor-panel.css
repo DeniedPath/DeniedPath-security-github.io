@@ -1,0 +1,57 @@
+/* configure-sensor-panel.css */
+
+.configure-panel-main {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.config-section {
+    background-color: var(--card-background);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px var(--shadow-color);
+}
+
+.config-section h2 {
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.input-group input,
+.input-group select {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+}
+
+.config-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.config-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: var(--background-color);
+    border-radius: 4px;
+}
+
+.config-list button {
+    padding: 5px 10px;
+    background-color: var(--error-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}

@@ -1,0 +1,68 @@
+/* sensor-control-panel.css */
+
+.control-panel-main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.sensor-control-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.sensor-info-boxes {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 60%;
+}
+
+.info-box-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.info-box {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.info-box i {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.building-input,
+#floor-selector,
+#sensor-selector {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+}
+
+.sensor-actions,
+.sensor-status-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.log-chat {
+    width: 35%;
+    height: 400px;
+    overflow-y: auto;
+    padding: 15px;
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+}
+
+#log-content {
+    height: 100%;
+}
