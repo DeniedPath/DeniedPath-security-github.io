@@ -6,7 +6,7 @@ const inactivityTimeout = 1 * 60 * 1000; // 1 minute in milliseconds
 let inactivityTimer;
 
 // Master username and password for login
-const masterUsername = "ManIWantToSleep";
+const masterUsername = "Masteruser";
 const masterPassword = "S3cur3#AlarmSy$tem";
 
 // Function to handle login
@@ -40,6 +40,29 @@ function signIn() {
 
     // If no match found
     showPopup("Invalid username or password.");
+}
+
+// Function to show admin login prompt
+function showAdminLogin() {
+    const enteredPassword = prompt("Enter Admin Password:");
+    if (enteredPassword === adminPassword) {
+        currentUser = { username: 'admin', isAdmin: true };
+        showAdminDashboard();
+    } else {
+        showPopup('Incorrect admin password.');
+    }
+}
+
+// Function to show forgot password section
+function showForgotPassword() {
+    console.log('Show forgot password function called');
+    showSection('forgotPassword');
+}
+
+// Function to show create account section
+function showCreateAccount() {
+    console.log('Show create account function called');
+    showSection('createAccount');
 }
 
 // Function to create a new account

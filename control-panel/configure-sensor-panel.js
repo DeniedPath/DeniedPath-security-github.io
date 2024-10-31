@@ -115,11 +115,11 @@ function saveFloors() {
 }
 
 function showPopup(message) {
-    // Assuming you have a modal or popup function in your main.js
-    // If not, you can implement a simple alert here
-    if (typeof window.showPopup === 'function') {
+    // Check if window.showPopup exists and is not this function
+    if (typeof window.showPopup === 'function' && window.showPopup !== showPopup) {
         window.showPopup(message);
     } else {
+        // Fallback to alert if window.showPopup is not available or is this function
         alert(message);
     }
 }
